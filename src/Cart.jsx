@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -6,36 +6,24 @@ import {
   TableRow,
   TableHead,
 } from "@mui/material";
-import { useContext } from "react";
-import { CartContext } from "./context";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
   const { outletName } = useParams();
-  const location = useLocation();
-  const { state } = location;
-  const cartWrap = useContext(CartContext); 
-  console.log(cartWrap);
-
+  const cart = useSelector((state) => state.cartReducer.redCart);
   const navigate = useNavigate();
-
-  console.log(state, "this is Params and Location");
-  //   console.log(cart)
-  //   const navigate = useNavigate();
-  //   const backToList = () => {
-  //     navigate("/outlet/:outletName", { state: cart });  
-  //   };
 
   const handlePayNow = () => {
     alert("Payment Successful");
   };
   const goBackToMenu = () => {
-    navigate(`/outlet/${outletName}`, { state: 0});
+    navigate(`/outlet/${outletName}`);
   };
-  const grandTotatl = () => {
+  const grandTotal = () => {
     return getTotalAmount() + 2 * (getTotalAmount() * tax());
   };
   const getTotalAmount = () => {
-    return cartWrap.cart.reduce(
+    return cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
@@ -43,17 +31,9 @@ const Cart = () => {
   const tax = () => {
     return 25 / 1000;
   };
-  //   console.log(getTotalAmount());
+
   return (
     <div>
-      {/* <MUIDataTable
-        data={data}
-        columns={columns}
-        options={options}
-      /> */}
-      {/* <div>
-        <button onClick={backToList}>Back</button>
-      </div> */}
       <div>
         <h1 className="text-center text-4xl ">CART</h1>
         <button
@@ -75,7 +55,7 @@ const Cart = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cartWrap.cart.map((item, index) => (
+            {cart.map((item, index) => (
               <TableRow key={item.id}>
                 <TableCell align="center">{index + 1}</TableCell>
                 <TableCell>
@@ -124,7 +104,7 @@ const Cart = () => {
               <TableRow>
                 <TableCell align="left">Total Amount To Pay</TableCell>
                 <TableCell align="right">
-                  {parseFloat(grandTotatl()).toFixed(2)}
+                  {parseFloat(grandTotal()).toFixed(2)}
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -189,3 +169,8 @@ export default Cart;
 //     filter: false,
 //     sort: false,
 //   };
+ //   console.log(cart)
+  //   const navigate = useNavigate();
+  //   const backToList = () => {
+  //     navigate("/outlet/:outletName", { state: cart });  
+  //   };
