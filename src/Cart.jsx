@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 const Cart = () => {
   const { outletName } = useParams();
-  const cart = useSelector((state) => state.cartReducer.redCart);
+  const cart = useSelector((state) => state.cartReducer.cart);
   const navigate = useNavigate();
 
   const handlePayNow = () => {
@@ -119,58 +119,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-//   const getTotalAmount = () => {
-//     return cart.reduce(
-//       (total, item) => total + item.price * item.quantity,
-//       0
-//     );
-//   };
-
-//   const columns = [
-//     {
-//       name: "serialNo",
-//       label: "Serial No.",
-//     },
-//     {
-//       name: "name",
-//       label: "Name",
-//     },
-//     {
-//       name: "quantity",
-//       label: "Quantity",
-//     },
-//     {
-//       name: "price",
-//       label: "Price",
-//     },
-//     {
-//       name: "totalPrice",
-//       label: "Total Price",
-//     },
-//   ];
-
-//   const data = cart.map((item, index) => ({
-//     serialNo: index + 1,
-//     name: item.name,
-//     quantity: item.quantity,
-//     price: item.price,
-//     totalPrice: item.price * item.quantity,
-//   }));
-
-//   const options = {
-//     filterType: "none",
-//     selectableRows: "none",
-//     pagination: false,
-//     search: false,
-//     download: false,
-//     print: false,
-//     viewColumns: false,
-//     filter: false,
-//     sort: false,
-//   };
- //   console.log(cart)
-  //   const navigate = useNavigate();
-  //   const backToList = () => {
-  //     navigate("/outlet/:outletName", { state: cart });  
-  //   };

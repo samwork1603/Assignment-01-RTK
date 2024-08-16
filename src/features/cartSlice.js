@@ -1,21 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useParams } from "react-router-dom";
 
-const {outletName} = useParams;
+const initialState = {
+  cart: [],
+};
 
 export const cartSlice = createSlice({
-    name: 'cart',
-    initialState:[],
-    reducers: {
-        addCart: (state,action) => {
-            const updatedCart = {
-               id: `${outletName}-${action.payload.item.id}`,
-               item:action.payload.item
-            }
-            state.push.apply(updatedCart)
-        }
-    }
-})
+  name: "cartReducer",
+  initialState,
+  reducers: {
+    addCart: (state, action) => {
+      const { outletName, item } = action.payload;
+      const cartItem = { ...item, id: `${outletName}-${item.id}` };
+      
+      
+      const existingItem = state.cart.find((check) => check.id === cartItem.id);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.cart.push({ ...cartItem, quantity: 1 });
+      }
+    },
 
-export const {addCart} = cartSlice.actions
-export default cartSlice.reducer
+    removeCart: (state, action) => {
+      const { outletName, item } = action.payload;
+      const cartItemId = `${outletName}-${item.id}`;
+      
+      const existingItem = state.cart.find((check) => check.id === cartItemId);
+      
+      if (existingItem) {
+        if (existingItem.quantity > 1) {
+          existingItem.quantity -= 1;
+        } else {
+          state.cart = state.cart.filter((check) => check.id !== cartItemId);
+        }
+      }
+    },
+  },
+});
+
+export const { addCart, removeCart } = cartSlice.actions;
+export default cartSlice.reducer;

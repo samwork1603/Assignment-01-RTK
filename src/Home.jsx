@@ -31,40 +31,4 @@ const HomePage = () => {
 
 export default HomePage;
 
-{
-  /* <div className="flex justify-center">
-          <Link to="/outlet/kfc">
-            <div className="p-20 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <img src={kfcLogo} alt="KFC Logo" className="h-24 w-auto" />
-            </div>
-          </Link>
-        </div> */
-}
 
-{
-  /* <div className="flex justify-center">
-          <Link to="/outlet/mcdonalds">
-            <div className="p-20 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <img
-                src={mcdonaldsLogo}
-                alt="McDonalds Logo"
-                className="h-24 w-auto"
-              />
-            </div>
-          </Link>
-        </div> */
-}
-
-{
-  /* <div className="flex justify-center">
-          <Link to="/outlet/dominos">
-            <div className="p-20 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <img
-                src={dominosLogo}
-                alt="Dominos Logo"
-                className="h-24 w-auto"
-              />
-            </div>
-          </Link>
-        </div> */
-}

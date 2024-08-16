@@ -1,10 +1,8 @@
-// import { useState,useEffect } from "react";
 import menuData from "./menus.json";
 import { useParams, useNavigate } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "./cartActions";
-
+import { addCart, removeCart } from "./features/cartSlice";
 const vegLogoUrl =
   "https://img.icons8.com/?size=100&id=61083&format=png&color=000000";
 const nonVegLogoUrl =
@@ -14,16 +12,17 @@ const OutletPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { outletName } = useParams();
-
-  const readingCart = useSelector((state) => state.cartReducer.redCart);
+ 
+  const readingCart = useSelector((state) => state.cartReducer.cart);
   console.log(readingCart);
   // handles**********
   const handleAddToCart = (item) => {
-    dispatch(addToCart(outletName, item));
+    dispatch(addCart({ outletName, item }));
+
   };
 
   const handleRemoveFromCart = (item) => {
-    dispatch(removeFromCart(outletName, item));
+    dispatch(removeCart({ outletName, item }));
   };
 
   // totals**********
@@ -115,80 +114,3 @@ const OutletPage = () => {
 
 export default OutletPage;
 
-// const addToCart = (item) => {
-//   cartWrap.setCart(prevCart => {
-//     const updatedCart = { ...prevCart };
-//     if (updatedCart[item.id]) {
-//       updatedCart[item.id].quantity += 1;
-//     } else {
-//       updatedCart[item.id] = {
-//         ...item,
-//         quantity: 1,
-//       };
-//     }
-//     return updatedCart;
-//   });
-// };
-
-// const removeFromCart = (item) => {
-//   cartWrap.setCart((prevCart) => {
-//     const updatedCart = { ...prevCart };
-//     if (updatedCart[item.id] && updatedCart[item.id].quantity > 1) {
-//       updatedCart[item.id].quantity -= 1;
-//     } else {
-//       delete updatedCart[item.id];
-//     }
-//     return updatedCart;
-//   });
-// };
-
-// const location = useLocation();
-
-// useEffect(() => {
-//   if (location.state?.cartWrap.readingCart) {
-//     cartWrap.setCart(location.state.cartWrap.readingCart);
-//   }
-// }, [location.state]);
-
-// const addToCart = (item) => {
-//   const cartItem = { ...item, id: `${outletName}-${item.id}` };
-//   cartWrap.setCart((prevCart) => {
-//     const existingItemIndex = prevCart.findIndex(
-//       (it) => it.id === cartItem.id
-//     );
-//     if (existingItemIndex !== -1) {
-//       const updatedCart = [...prevCart];
-//       updatedCart[existingItemIndex].quantity += 1;
-//       return updatedCart;
-//     } else {
-//       return [...prevCart, { ...cartItem, quantity: 1 }];
-//     }
-//   });
-// };
-
-// const removeFromCart = (item) => {
-//   cartWrap.setCart((prevCart) => {
-//     const cartItemId = `${outletName}-${item.id}`;
-//     const existingItem = prevCart.find((it) => it.id === cartItemId);
-
-//     if (existingItem) {
-//       if (existingItem.quantity > 1) {
-//         return prevCart.map((it) =>
-//           it.id === cartItemId ? { ...it, quantity: it.quantity - 1 } : it
-//         );
-//       } else {
-//         return prevCart.filter((it) => it.id !== cartItemId);
-//       }
-//     }
-
-//     return prevCart;
-//   });
-// };
-
-// const getTotalItems = () => {
-//   return cartWrap.readingCart.reduce((total, item) => total + item.quantity, 0);
-// };
-
-// const getTotalAmount = () => {
-//   return cartWrap.readingCart.reduce((total, item) => total + item.price * item.quantity, 0);
-// };
